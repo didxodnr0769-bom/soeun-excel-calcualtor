@@ -1,38 +1,87 @@
-.App {
+* {
+  font-size: 26px;
+}
+table,
+th,
+td {
+  border: 1px solid #000000;
+  border-collapse: collapse;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.price-container {
+  position: fixed;
+  top: 20vh;
+  right: 0;
+  height: 100vh;
+  width: 500px;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.tab-container {
   display: flex;
-  flex-direction: column;
+  margin: 20px 0px;
+}
+
+.tab-item {
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: rgb(255, 180, 180);
+  margin-right: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.check-price {
+  font-size: 32px;
+}
+.uncheck-price {
+  color: red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.uncheck-info {
+  margin-top: 20px;
+  font-weight: 200;
+  font-size: 18px;
+  height: 400px;
+  overflow-y: scroll;
+  background-color: rgb(229, 255, 246);
+}
+
+tr {
+  height: 60px;
+}
+
+tbody tr:hover {
+  cursor: pointer;
+  background-color: #ababab;
+}
+input[type="checkbox"] {
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
+
+th,
+td {
+}
+
+.table-name {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.is-use {
+  width: 150px;
+}
+
+.no {
+  width: 100px;
+}
+.title {
+  width: 480px;
 }
