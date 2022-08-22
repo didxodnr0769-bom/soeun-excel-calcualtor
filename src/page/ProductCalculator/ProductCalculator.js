@@ -15,19 +15,12 @@ function commaFormater(num) {
   }
 }
 
+/**
+ * 선택한 엑셀파일을 이용하여 필요한 데이터를 보여준 계산기 컴포넌트입니다.
+ * @see {@link App}
+ */
 function ProductCalculator(props) {
   const { datas, setDatas } = props;
-
-  /** 합계 금액 가져오기 이벤트 */
-  const getTotalSalePrice = () => {
-    if (!datas.length) return 0;
-    const copyDatas = getCopyObj(datas).filter((data) => data.check);
-
-    const totalPrice = copyDatas.reduce((prev, data) => {
-      return prev + data.salePrice;
-    }, 0);
-    return commaFormater(totalPrice);
-  };
 
   /** 사용하지 않는 물품의 정보 및 합계금액 반환 */
   const getUnusedProduct = () => {
@@ -64,7 +57,6 @@ function ProductCalculator(props) {
   };
 
   const {
-    checkProduct = [],
     uncheckProduct = [],
     checkPrice = 0,
     uncheckPrice = 0,
@@ -105,14 +97,21 @@ function ProductCalculator(props) {
               <tr>
                 <th className="is-use">사용여부</th>
                 <th className="no">No</th>
+                <th>상품코드</th>
                 <th className="title">상품명</th>
                 <th>총매출액</th>
               </tr>
             </thead>
             <tbody>
               {datas.map((data, idx) => {
+                console.log("ytw data", data.check);
                 return (
-                  <tr key={idx} onClick={handleChangeUse} number={idx}>
+                  <tr
+                    class={`${data.check ? "" : "disabled-tr"}`}
+                    key={idx}
+                    onClick={handleChangeUse}
+                    number={idx}
+                  >
                     <td>
                       <input
                         type="checkbox"
@@ -121,6 +120,7 @@ function ProductCalculator(props) {
                       />
                     </td>
                     <td>{data.no}</td>
+                    <td>{data.code}</td>
                     <td>{data.title}</td>
                     <td>{commaFormater(data.salePrice)}원</td>
                   </tr>

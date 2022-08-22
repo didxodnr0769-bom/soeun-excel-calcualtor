@@ -15,7 +15,12 @@ function App() {
       let data = reader.result;
       let workBook = XLSX.read(data, { type: "binary" });
       workBook.SheetNames.forEach(function (sheetName) {
-        // console.log("SheetName: " + sheetName);
+        // 사용할 엑셀파일의 범위 재설정(A1~A5는 필요없는 정보)
+        const replaceRef = workBook.Sheets[sheetName]["!ref"].replace(
+          "A1",
+          "A6"
+        );
+        workBook.Sheets[sheetName]["!ref"] = replaceRef;
         let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
         const newRows = rows
           .map((data) => {
@@ -24,6 +29,7 @@ function App() {
               no: data["No."],
               title: data.상품명,
               salePrice: data.총매출액,
+              code: data.상품코드,
             };
           })
           .filter((data) => data.title !== "");
@@ -33,6 +39,7 @@ function App() {
     reader.readAsBinaryString(e.target.files[0]);
   };
 
+  /** Tab 변경 이벤트 */
   const handleClickTab = (e) => {
     const tabIndex = e.target.getAttribute("value");
     setTab(parseInt(tabIndex));

@@ -50,8 +50,17 @@ td {
   background-color: rgb(229, 255, 246);
 }
 
+thead tr {
+  background-color: rgb(216, 216, 216);
+}
+
 tr {
   height: 60px;
+  background-color: rgb(255, 180, 180);
+}
+
+tr.disabled-tr {
+  background-color: rgb(229, 255, 0);
 }
 
 tbody tr:hover {
@@ -76,7 +85,7 @@ td {
 }
 
 .is-use {
-  width: 150px;
+  width: 120px;
 }
 
 .no {
