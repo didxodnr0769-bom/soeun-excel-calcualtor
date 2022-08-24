@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import * as XLSX from "xlsx";
 import ProductCalculator from "./page/ProductCalculator/ProductCalculator";
 import Version from "./page/Version/Version";
 import FixUnCheckList from "./page/FixUnCheckList/FixUnCheckList";
+import {
+  getUncheckListStorage,
+  addUncheckListStorage,
+  removeUncheckListStorage,
+} from "./helper/helper-storage";
+import { getCodeFromUnCheckList } from "./helper/helper-uncheck";
 
 function App() {
   const [datas, setDatas] = useState([]);
   const [tab, setTab] = useState(0);
+  const [uncheckList, setUncheckList] = useState([]);
+
+  useEffect(() => {
+    setUncheckList(getUncheckListStorage());
+  }, []);
   /** 엑셀파일 첨부 이벤트 */
   const readExcel = (e) => {
     let reader = new FileReader();
@@ -20,16 +31,19 @@ function App() {
           "A1",
           "A6"
         );
+
         workBook.Sheets[sheetName]["!ref"] = replaceRef;
         let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
         const newRows = rows
           .map((data) => {
+            const unchcekCodeList = getCodeFromUnCheckList(uncheckList);
+            const code = data.상품코드;
             return {
-              check: true,
+              check: !unchcekCodeList.includes(code),
               no: data["No."],
               title: data.상품명,
               salePrice: data.총매출액,
-              code: data.상품코드,
+              code,
             };
           })
           .filter((data) => data.title !== "");
@@ -43,6 +57,20 @@ function App() {
   const handleClickTab = (e) => {
     const tabIndex = e.target.getAttribute("value");
     setTab(parseInt(tabIndex));
+  };
+
+  /** 사용하지 않을 상품 추가 이벤트 */
+  const addUncheckList = (param) => {
+    addUncheckListStorage(param).then((res) => {
+      setUncheckList(res);
+    });
+  };
+
+  /** 사용하지 않을 상품 제거 이벤트 */
+  const removeUncheckList = (code) => {
+    removeUncheckListStorage(code).then((res) => {
+      setUncheckList(res);
+    });
   };
   return (
     <div>
@@ -60,7 +88,13 @@ function App() {
       </div>
 
       {tab === 0 && <ProductCalculator datas={datas} setDatas={setDatas} />}
-      {tab === 1 && <FixUnCheckList />}
+      {tab === 1 && (
+        <FixUnCheckList
+          uncheckList={uncheckList}
+          addUncheckList={addUncheckList}
+          removeUncheckList={removeUncheckList}
+        />
+      )}
       {tab === 2 && <Version />}
     </div>
   );

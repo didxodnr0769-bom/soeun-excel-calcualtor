@@ -36,6 +36,19 @@ function Version() {
           3. 테이블 색상 변경 & 선택된 row 색상 변경
         </div>
       </div>
+      <div>
+        <h1
+          style={{
+            fontSize: "36px",
+          }}
+        >
+          1.0.2 (2022.08.24)
+        </h1>
+        <div>
+          1. 제외항목 화면 추가(진행중)
+          <br />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,3 @@
-import { useState } from "react";
-import * as XLSX from "xlsx";
-
 /** 복제 */
 const getCopyObj = (obj) => {
   return JSON.parse(JSON.stringify(obj));
@@ -89,7 +86,7 @@ function ProductCalculator(props) {
       </div>
 
       <div className="data-table">
-        <div className="table-name">계산기(v1.0.0)</div>
+        <div className="table-name">계산기(v1.0.2)</div>
 
         <div className="table-container">
           <table>
@@ -104,10 +101,9 @@ function ProductCalculator(props) {
             </thead>
             <tbody>
               {datas.map((data, idx) => {
-                console.log("ytw data", data.check);
                 return (
                   <tr
-                    class={`${data.check ? "" : "disabled-tr"}`}
+                    className={`${data.check ? "" : "disabled-tr"}`}
                     key={idx}
                     onClick={handleChangeUse}
                     number={idx}
