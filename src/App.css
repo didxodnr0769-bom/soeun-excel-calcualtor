@@ -1,6 +1,10 @@
 * {
   font-size: 22px;
 }
+body {
+  cursor: url("../public/img/cursor.cur"), auto;
+  min-height: 100vh;
+}
 table,
 th,
 td {

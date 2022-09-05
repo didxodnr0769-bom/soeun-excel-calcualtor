@@ -1,3 +1,5 @@
+import version from "../Version/version.json";
+
 /** 복제 */
 const getCopyObj = (obj) => {
   return JSON.parse(JSON.stringify(obj));
@@ -58,6 +60,7 @@ function ProductCalculator(props) {
     checkPrice = 0,
     uncheckPrice = 0,
   } = getPriceInfo();
+  const versionNumber = version[version.length - 1].version;
   return (
     <div className="App">
       <div className="price-container">
@@ -86,8 +89,12 @@ function ProductCalculator(props) {
       </div>
 
       <div className="data-table">
-        <div className="table-name">계산기(v1.0.2)</div>
-
+        <div
+          className="table-name"
+          title="업데이트 정보로 가시면 변경내역 확인 가능합니다♥"
+        >
+          계산기(v{versionNumber})
+        </div>
         <div className="table-container">
           <table>
             <thead>
